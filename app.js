@@ -12,8 +12,36 @@ io.on('connection', socket => {
             name: users[socket.id]
         });
     });
+    socket.on('send-chat-message-to-db', message => {
+        let promises = [];
+        const messagesToDb = archiveMessages.concat(message);
+        promises.push(messagesAll.findByIdAndUpdate('5f28e4aec5260905397de28b', {
+            messages: messagesToDb
+        }, (err, data) => {
+            if (err) {
+                console.log(err);
+            }
+        }).catch(reject => console.log(reject)));
+        Promise.all(promises).then(function () {
+            updateArchiveMsg();
+        }).catch(err => {
+
+            console.log(err);
+        });
+
+    });
     socket.on('disconnect', () => {
         socket.broadcast.emit('user-disconnected', users[socket.id]);
         delete users[socket.id];
     });
 });
+
+function updateArchiveMsg() {
+    messagesAll.find({}, (err, data) => {
+        archiveMessages = data[0].messages;
+        if (err) {
+            throw ('Błąd!' + err);
+        };
+    });
+}
+module.exports = router;

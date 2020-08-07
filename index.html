@@ -5,13 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="chat-container">
+        <div class="chat-container__hide">Chat</div>
         <form action="" class="send-container">
             <input type="text" class="send-container__input">
-            <button type="submit" class="send-container__btn">Wyślij</button>
+            <button type="submit" class="send-container__btn">Wyślij <i class="fas fa-paper-plane"></i></button>
         </form>
     </div>
     <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
