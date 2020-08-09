@@ -13,7 +13,7 @@ router.all('*', (req, res, next) => {
     next();
 })
 
-/* GET users listing. */
+
 router.get('/', function (req, res, next) {
     updateArchiveMsg();
     crmAccounts.find({}, (err, data) => {
@@ -33,13 +33,10 @@ router.get('/get-chat-name', function (req, res, next) {
     });
 });
 router.post('/', function (req, res, next) {
-    // req.session.admin = 0; - zlikwidowanie sesji [wylogowanie]
+
     req.session.userName = '';
     return res.redirect('/crm');
 });
-
-// socket
-
 
 const io = require('socket.io')(5010);
 const users = {};
@@ -79,8 +76,6 @@ io.on('connection', socket => {
     });
 });
 
-
-// socket koniec
 router.post('/chat', function (req, res, next) {
     return res.redirect('/crm');
 });
